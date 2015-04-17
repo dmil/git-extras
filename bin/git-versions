@@ -16,13 +16,22 @@ filename="${filename%.*}"
 
 clean=$(repo_is_clean)
 if [[ "$clean" == "repo is clean" ]]; then
-  mkdir "$dirpath/${filename}_versions"
+  # mkdir "$dirpath/${filename}_versions"
   # chmod 777 $1_versions
 
-  git log --follow $1 | grep "^commit*" | while read -r line ; do
-    commit_sha1="${line/commit /}"
-    git checkout $commit_sha1
-    cat $1 > "$dirpath/${filename}_versions/${filename}_$commit_sha1"
+  git log --follow $1 | grep -A 2 "^commit*" | while read -r chunk ; do
+    echo `grep commit $chunk`
+
+    # commit_line=`grep commit $chunk`
+    # commit_sha1="${commit_line/commit /}"
+
+    # date_line=`grep date $chunk`
+    # date_string="${commit_line/Date:   /}"
+    # echo $date_string
+    # date_string=`date -j -f '%a %b %d %T %Y' $date_string +%Y-%m-%d`
+
+    # git checkout $commit_sha1
+    # cat $1 > "$dirpath/${filename}_versions/${filename}_$date_string"
   done
 
   git checkout master
