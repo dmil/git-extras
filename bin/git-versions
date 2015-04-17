@@ -1,0 +1,11 @@
+#!/bin/sh
+
+mkdir "$1dir"
+
+git log --follow $1 | grep "^commit*" | while read -r line ; do
+    commit_sha1="${line/commit /}"
+    git checkout $commit_sha1
+    cat $1 > $1dir/$1_$commit_sha1
+done
+
+git checkout master
