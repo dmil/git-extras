@@ -29,7 +29,7 @@ if [[ "$clean" == "repo is clean" ]]; then
     commit_date=`git log --date=short | grep 'Date:   ' | head -n1`
     commit_date=${commit_date:8}
 
-    cat $1 > "$dirpath/${filename}_versions/${filename}_$commit_date_$commit_sha1"
+    cat $1 > "$dirpath/${filename}_versions/${filename}_${commit_date}_${commit_sha1}"
   done
 
   # checkout master again
