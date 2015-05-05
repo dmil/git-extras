@@ -33,7 +33,7 @@ if [[ "$clean" == "repo is clean" ]]; then
     commit_date=${commit_date/:/}
 
 
-    cat $1 > "$dirpath/${filename}_versions/${filename}_${commit_date}_${commit_sha1}"
+    cat $1 > "$dirpath/${filename}_versions/${filename}_${commit_date}_${commit_sha1}.${extension}"
   done
 
   # checkout master again
