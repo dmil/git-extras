@@ -26,8 +26,12 @@ if [[ "$clean" == "repo is clean" ]]; then
     commit_sha1="${line/commit /}"
     git checkout $commit_sha1
 
-    commit_date=`git log --date=short | grep 'Date:   ' | head -n1`
-    commit_date=${commit_date:8}
+    commit_date=`git log --date=iso | grep 'Date:   ' | head -n1`
+    commit_date=${commit_date:8:19}
+    commit_date=${commit_date/ /_}
+    commit_date=${commit_date/:/}
+    commit_date=${commit_date/:/}
+
 
     cat $1 > "$dirpath/${filename}_versions/${filename}_${commit_date}_${commit_sha1}"
   done
