@@ -25,7 +25,11 @@ if [[ "$clean" == "repo is clean" ]]; then
   git log --follow $1 | grep "^commit*" | while read -r line ; do
     commit_sha1="${line/commit /}"
     git checkout $commit_sha1
-    cat $1 > "$dirpath/${filename}_versions/${filename}_$commit_sha1"
+
+    commit_date=`git log --date=short | grep 'Date:   ' | head -n1`
+    commit_date=${commit_date:8}
+
+    cat $1 > "$dirpath/${filename}_versions/${filename}_$commit_date_$commit_sha1"
   done
 
   # checkout master again
@@ -34,3 +38,5 @@ if [[ "$clean" == "repo is clean" ]]; then
  else
   echo "Did not get versions. Working directory not clean. You may need to commit or stash changes."
 fi
+
+# git log | grep -A2 "^commit*" | grep "Date"
