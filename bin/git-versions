@@ -32,7 +32,6 @@ if [[ "$clean" == "repo is clean" ]]; then
     commit_date=${commit_date/:/}
     commit_date=${commit_date/:/}
 
-
     cat $1 > "$dirpath/${filename}_versions/${filename}_${commit_date}_${commit_sha1}.${extension}"
   done
 
@@ -42,5 +41,3 @@ if [[ "$clean" == "repo is clean" ]]; then
  else
   echo "Did not get versions. Working directory not clean. You may need to commit or stash changes."
 fi
-
-# git log | grep -A2 "^commit*" | grep "Date"
